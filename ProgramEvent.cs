@@ -36,4 +36,33 @@ class ProgramEvent
             Console.WriteLine(el);
         }
     }
+
+    public void clearEvents()
+    {
+        events.Clear();
+    }
+
+    public string eventInfo()
+    {
+        Console.WriteLine("Ecco il tuo programma di eventi:");
+
+        string allEvents = "";
+
+        foreach (Event el in this.events)
+        {
+            allEvents += el.ToString();
+        }
+        return allEvents;
+    }
+
+    public int countEvents()
+    {
+        int count = 0;
+
+        foreach (Event el in this.events)
+        {
+            count++;
+        }
+        return count;
+    }
 }
