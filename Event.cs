@@ -4,16 +4,15 @@ class Event
 {
     public string Title { get; set; }
 
-    public DateTime EventDate { get; private set; }
+    public DateTime Date { get; private set; }
     public int MaxPeopleForEvent { get; private set; }
-    public int Reservation { get; private set; }
+    public int Reservation { get; private set; } = 0;
 
-    public Event(string title, DateTime eventDate, int maxPeopleForEvent, int reservation)
+    public Event(string title, DateTime date, int maxPeopleForEvent)
     {
         Title = title;
-        EventDate = eventDate;
+        Date = date;
         MaxPeopleForEvent = maxPeopleForEvent;
-        Reservation = reservation;
     }
 
     public void bookSeats(int number)
@@ -47,7 +46,7 @@ class Event
         switch (number)
         {
             case 0:
-                if(EventDate == this.EventDate)
+                if(Date == this.Date)
                 {
                     if (Reservation - number > 0)
                     {
@@ -60,11 +59,16 @@ class Event
                 }
                 break;
             case 1:
-                if (EventDate != this.EventDate)
+                if (Date != this.Date)
                 {
                     Console.WriteLine("La data selezionata non corrisponde a nessun evento");
                 }
                 break;
         }
+    }
+
+    public override string ToString()
+    {
+        return $"{Date.ToString("dd/MM/yyyy")}, {Title}";
     }
 }
