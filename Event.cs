@@ -18,12 +18,12 @@ class Event
 
         if (Title == "")
         {
-            throw new noName("Devi inserire un titolo");
+            throw new NullEmptyNameException("Devi inserire un titolo");
         }
         Title = title;
         if (Date < DateTime.Now)
         {
-            throw new noDate("Non puoi scegliere una data già processata");
+            throw new NullEmptyDateException("Non puoi scegliere una data già processata");
         }
         Date = date;
     }
@@ -34,12 +34,10 @@ class Event
         {
             MaxPeopleForEvent -= number;
             Reservation += number;
-            Console.WriteLine("Prenotazione effettuata con successo");
-            Console.WriteLine($"Posti ancora disponibili n:{MaxPeopleForEvent}, posti prenotati n:{Reservation}");
         }
         if (MaxPeopleForEvent - number <= 0)
         {
-            Console.WriteLine("Spiacente l'evento è già al completo");
+            throw new BlockReservationException("Spiacente l'evento è già al completo");
         }
     }
 
@@ -52,17 +50,16 @@ class Event
             {
                 Reservation -= number;
                 MaxPeopleForEvent += number;
-                Console.WriteLine("Prenotazione disdetta con successo");
-                Console.WriteLine($"Posti ancora disponibili n:{MaxPeopleForEvent}, posti prenotati n:{Reservation}");
+                throw new ConfirmCancelReservationException("Prenotazione disdetta con successo");
             }
             else if (Reservation - number <= 0)
             {
-                Console.WriteLine("Non è possibile disdire, controllare di aver selezionato l'evento corretto");
+                throw new DeniedCancelReservationException("Non è possibile disdire, controllare di aver selezionato l'evento corretto");
             }
         }
         if (Date != this.Date)
         {
-            Console.WriteLine("La data selezionata non corrisponde a nessun evento");
+            throw new MismathicngDateException("La data selezionata non corrisponde a nessun evento");
         }
     }
 
@@ -72,11 +69,38 @@ class Event
     }
 }
 
-public class noName : Exception
+//se name è empty
+public class NullEmptyNameException : Exception
 {
-    public noName(string message) : base(message) { }
+    public NullEmptyNameException(string message) : base(message) { }
 }
-public class noDate : Exception
+//se date è null
+public class NullEmptyDateException : Exception
 {
-    public noDate(string message) : base(message) { }
+    public NullEmptyDateException(string message) : base(message) { }
 }
+
+//blocco prenotazione per evento completo
+public class BlockReservationException : Exception
+{
+    public BlockReservationException(string message) : base(message) { }
+}
+//conferma cancellazione dopo aver prenotato
+public class ConfirmCancelReservationException : Exception
+{
+    public ConfirmCancelReservationException(string message) : base(message) { }
+}
+
+//blocca cancellazione dopo aver prenotato
+public class DeniedCancelReservationException : Exception
+{
+    public DeniedCancelReservationException(string message) : base(message) { }
+}
+
+//mismatching date
+
+public class MismathicngDateException : Exception
+{
+    public MismathicngDateException(string message) : base(message) { }
+}
+
