@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Data;
+
 class Event
 {
     public string Title { get; set; }
@@ -13,6 +15,17 @@ class Event
         Title = title;
         Date = date;
         MaxPeopleForEvent = maxPeopleForEvent;
+
+        if (Title == "")
+        {
+            throw new noName("Devi inserire un titolo");
+        }
+        Title = title;
+        if (Date < DateTime.Now)
+        {
+            throw new noDate("Non puoi scegliere una data già processata");
+        }
+        Date = date;
     }
 
     public void bookSeats(int number)
@@ -57,4 +70,13 @@ class Event
     {
         return $"{Date.ToString("dd/MM/yyyy")}, {Title}";
     }
+}
+
+public class noName : Exception
+{
+    public noName(string message) : base(message) { }
+}
+public class noDate : Exception
+{
+    public noDate(string message) : base(message) { }
 }
