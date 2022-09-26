@@ -50,7 +50,7 @@ class ProgramEvent
 
         foreach (Event el in this.events)
         {
-            allEvents += el.ToString();
+            allEvents += el.ToString() + '\n';
         }
         return allEvents;
     }

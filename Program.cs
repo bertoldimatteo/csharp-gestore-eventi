@@ -12,7 +12,7 @@ int totalEvent = 0;
 
 while(totalEvent < eventNumber)
 {
-    Console.WriteLine($"Inserisci il nome del {totalEvent++}° evento:");
+    Console.WriteLine($"Inserisci il nome del {totalEvent+1}° evento:");
     string title = Console.ReadLine();
 
     Console.WriteLine($"Inserisci la data dell'evento (gg/mm/yyyy):");
@@ -28,8 +28,21 @@ while(totalEvent < eventNumber)
 
     Event event1 = new Event(title, new DateTime(year, month, day), seats);
     evento1.addEvent(event1);
+    Console.WriteLine();
+    Console.WriteLine();
     totalEvent++;
 }
+
+Console.WriteLine($"Il numero di eventi in programma è: {evento1.countEvents()}");
+Console.WriteLine();
+Console.WriteLine(evento1.eventInfo());
+Console.WriteLine();
+Console.WriteLine("Inserisci una data per sapere che eventi ci saranno (gg/mm/yyyy):");
+string searching = Console.ReadLine();
+ProgramEvent.printEvents(evento1.dateEvent(searching));
+
+
+
 
 //Milestone 2 check
 //Console.WriteLine("Digita il nome dell'evento che vuoi creare");
