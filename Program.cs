@@ -15,4 +15,33 @@ int month = Convert.ToInt32(splitDate[1]);
 int year = Convert.ToInt32(splitDate[2]);
 
 Event concerto1 = new Event(eventName, new DateTime(year, month, day), eventAvailableSeats);
-Console.WriteLine(concerto1);
+Console.WriteLine($"Creazione avvenuta con successo per l'evento {concerto1}");
+Console.WriteLine($"Posti disponibili {eventAvailableSeats}");
+
+Console.WriteLine("Quanti posti vuoi prenotare?");
+int reservation = Convert.ToInt32(Console.ReadLine());
+concerto1.bookSeats(reservation);
+
+bool enter = true;
+
+while (enter)
+{
+    Console.WriteLine("Vuoi disdire dei posti?(si/no)");
+    string userChoice = Console.ReadLine();
+
+    switch (userChoice)
+    {
+        case "si":
+            Console.WriteLine("Indica quanti posti vuoi disdire:");
+            int cancelNumber = Convert.ToInt32(Console.ReadLine());
+            concerto1.cancelReservation(cancelNumber);
+        break;
+        case "no":
+            Console.WriteLine("Concludo l'operazione per disdire dei posti");
+            Console.WriteLine($"Posti a disposizione N: {concerto1.MaxPeopleForEvent}");
+            Console.WriteLine($"Posti prenotati N: {concerto1.Reservation}");
+            enter = false;
+            break;
+    }
+}
+
